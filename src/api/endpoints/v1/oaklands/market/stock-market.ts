@@ -51,19 +51,16 @@ const route = createRoute({
 });
 
 function convertMaterialValues(values: { [key: string]: BaseMaterial }) {
-    return Object.entries(values)
-        .reduce<Record<string, StockMarketMaterialSchema>>((acc, [ key, info ]) => {
-            return {
-                [key]: {
-                    name: key.split('_').map((v) => v.charAt(0).toUpperCase() + v.substring(1)).join(' '),
-                    base_value: info.BasePrice,
-                    current_value: info.Price,
-                    current_difference: info.CurrentPercentage,
-                    last_difference: info.LastPercentage
-                },
-                ...acc
-            }
-        }, {});
+    return Object.entries(values).reduce<Record<string, StockMarketMaterialSchema>>((acc, [ key, info ]) => ({
+        ...acc,
+        [key]: {
+            name: key.split('_').map((v) => v.charAt(0).toUpperCase() + v.substring(1)).join(' '),
+            base_value: info.BasePrice,
+            current_value: info.Price,
+            current_difference: info.CurrentPercentage,
+            last_difference: info.LastPercentage
+        }
+    }), {});
 }
 
 oaklands.openapi(route, async (res) => {

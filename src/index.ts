@@ -1,4 +1,5 @@
 import "./setup/env";
+import "./lib/cache";
 import "./setup/endpoints";
 
 import app from "./lib/app";

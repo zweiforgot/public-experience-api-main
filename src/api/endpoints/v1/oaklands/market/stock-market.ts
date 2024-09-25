@@ -1,9 +1,10 @@
 import { createRoute } from "@hono/zod-openapi";
-import { MemoryStoresApi } from "openblox/cloud";
 import type { StockMarketMaterialSchema } from "#lib/schemas/StockMarketMaterial";
 import type { StockMarketMemoryStore, BaseMaterial } from "#lib/types";
 import oaklands from "#api/routes/oaklands";
 import StockMarket, { type StockMarketSchema } from "#lib/schemas/StockMarket";
+import ErrorMessage from "#lib/schemas/ErrorMessage";
+import cache from "#lib/cache";
 
 const example: StockMarketSchema = {
     trees: {
@@ -46,6 +47,12 @@ const route = createRoute({
                 "application/json": { schema: StockMarket, example }
             },
             description: "OK"
+        },
+        500: {
+            content: {
+                "application/json": { schema: ErrorMessage }
+            },
+            description: "INTERNAL ERROR"   
         }
     }
 });
@@ -64,17 +71,18 @@ function convertMaterialValues(values: { [key: string]: BaseMaterial }) {
 }
 
 oaklands.openapi(route, async (res) => {
-    const items = await MemoryStoresApi.sortedMapItem<StockMarketMemoryStore>({
-        universeId: 3666294218,
-        sortedMap: "MaterialValues",
-        itemId: "MaterialStockMarket"
-    });
+    const items = cache.get<StockMarketMemoryStore>('material_stock_market');
 
-    const { value: marketValues } = items.data;
+    if (!items) {
+        return res.json({
+            error: "INTERNAL_ERROR",
+            message: "There was an issue fetching the stock market."
+        }, 500);
+    }
 
     return res.json({
-        trees: convertMaterialValues(marketValues.Values.Trees),
-        rocks: convertMaterialValues(marketValues.Values.Rocks),
-        ores: convertMaterialValues(marketValues.Values.Ores)
+        trees: convertMaterialValues(items.Values.Trees),
+        rocks: convertMaterialValues(items.Values.Rocks),
+        ores: convertMaterialValues(items.Values.Ores)
     }, 200);
 });

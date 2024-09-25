@@ -1,9 +1,9 @@
 import { createRoute } from "@hono/zod-openapi";
-import { MemoryStoresApi } from "openblox/cloud";
 import type { BaseMaterial, StockMarketMemoryStore } from "#lib/types";
 import StockMarketMaterial, { type StockMarketMaterialSchema } from "#lib/schemas/StockMarketMaterial";
 import oaklands from "#api/routes/oaklands";
 import ErrorMessage from "#lib/schemas/ErrorMessage";
+import cache from "#lib/cache";
 
 const example: StockMarketMaterialSchema = {
     name: "Raw Petrified Oak",
@@ -45,21 +45,16 @@ const route = createRoute({
 
 oaklands.openapi(route, async (res) => {
     const materialType = res.req.param('material_type');
-    
-    const items = await MemoryStoresApi.sortedMapItem<StockMarketMemoryStore>({
-        universeId: 3666294218,
-        sortedMap: "MaterialValues",
-        itemId: "MaterialStockMarket"
-    });
+    const items = cache.get<StockMarketMemoryStore>('material_stock_market');
 
-    if (!items.response.success) {
+    if (!items) {
         return res.json({
             error: "INTERNAL_ERROR",
             message: "There was an internal error when requesting."
         }, 500);
     }
 
-    const materials = Object.values(items.data.value.Values)
+    const materials = Object.values(items.Values)
         .reduce<Record<string, BaseMaterial>>((acc, curr) => ({ ...acc, ...curr }), {});
     const material = materials[materialType];
 

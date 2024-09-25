@@ -10,8 +10,11 @@ cache.set(
 );
 
 // Resets the stock market at 6AM.
-NodeSchedule.scheduleJob('reset-stockmarket', '0 10 * * *', async () => {
-    cache.set('material_stock_market', await getMaterialStockMarket());
+NodeSchedule.scheduleJob('reset_stockmarket', '0 10 * * *', async () => {
+    cache.set(
+        'material_stock_market',
+        await getMaterialStockMarket()
+    );
 });
 
 export default cache;

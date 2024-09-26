@@ -1,10 +1,10 @@
 import { createRoute } from "@hono/zod-openapi";
-import type { StockMarketMaterialSchema } from "#lib/schemas/StockMarketMaterial";
-import type { StockMarketMemoryStore, BaseMaterial } from "#lib/types";
-import oaklands from "#api/routes/oaklands";
-import StockMarket, { type StockMarketSchema } from "#lib/schemas/StockMarket";
-import ErrorMessage from "#lib/schemas/ErrorMessage";
-import cache from "#lib/cache";
+import type { StockMarketMaterialSchema } from "@/lib/schemas/StockMarketMaterial";
+import type { StockMarketMemoryStore, BaseMaterial } from "@/lib/types";
+import oaklands from "@/api/routes/oaklands";
+import StockMarket, { type StockMarketSchema } from "@/lib/schemas/StockMarket";
+import ErrorMessage from "@/lib/schemas/ErrorMessage";
+import cache from "@/lib/cache";
 
 const example: StockMarketSchema = {
     trees: {

@@ -1,5 +1,5 @@
 import { MemoryStoresApi } from "openblox/cloud";
-import type { StockMarketMemoryStore } from "#lib/types";
+import type { StockMarketMemoryStore } from "@/lib/types";
 
 export async function getMaterialStockMarket() {
     const store = await MemoryStoresApi.sortedMapItem<StockMarketMemoryStore>({

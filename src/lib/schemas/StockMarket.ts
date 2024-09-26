@@ -1,5 +1,5 @@
 import { z } from '@hono/zod-openapi';
-import StockMarketMaterial from './StockMarketMaterial';
+import StockMarketMaterial from '@/lib/schemas/StockMarketMaterial';
 
 const StockMarket = z.object({
     trees: z.record(StockMarketMaterial),

@@ -1,6 +1,6 @@
-import { getMaterialStockMarket } from "#lib/util";
 import NodeCache from "node-cache";
 import NodeSchedule from "node-schedule";
+import { getMaterialStockMarket } from "@/lib/util";
 
 const cache = new NodeCache();
 

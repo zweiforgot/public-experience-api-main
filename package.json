@@ -7,8 +7,7 @@
     "deploy:dev": "tsc --noEmit && DEVELOPMENT=true bun ."
   },
   "imports": {
-    "#api/*": "./src/api/*.ts",
-    "#lib/*": "./src/lib/*.ts"
+    "@/*": "./src/*"
   },
   "dependencies": {
     "@hono/swagger-ui": "^0.4.1",

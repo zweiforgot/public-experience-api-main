@@ -1,5 +1,5 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
-import oaklands from "./oaklands";
+import oaklands from "@/api/routes/oaklands";
 
 const v1 = new OpenAPIHono();
 

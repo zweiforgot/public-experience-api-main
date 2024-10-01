@@ -1,6 +1,5 @@
 import { createRoute } from "@hono/zod-openapi";
-import type { StockMarketMaterialSchema } from "@/lib/schemas/StockMarketMaterial";
-import type { StockMarketMemoryStore, BaseMaterial } from "@/lib/types";
+import type { MaterialStockMarket } from "@/lib/types/experience";
 import oaklands from "@/api/routes/oaklands";
 import StockMarket, { type StockMarketSchema } from "@/lib/schemas/StockMarket";
 import ErrorMessage from "@/lib/schemas/ErrorMessage";
@@ -57,21 +56,8 @@ const route = createRoute({
     }
 });
 
-function convertMaterialValues(values: { [key: string]: BaseMaterial }) {
-    return Object.entries(values).reduce<Record<string, StockMarketMaterialSchema>>((acc, [ key, info ]) => ({
-        ...acc,
-        [key]: {
-            name: key.split('_').map((v) => v.charAt(0).toUpperCase() + v.substring(1)).join(' '),
-            base_value: info.BasePrice,
-            current_value: info.Price,
-            current_difference: info.CurrentPercentage,
-            last_difference: info.LastPercentage
-        }
-    }), {});
-}
-
 oaklands.openapi(route, async (res) => {
-    const items = cache.get<StockMarketMemoryStore>('material_stock_market');
+    const items = cache.get<MaterialStockMarket>('material_stock_market');
 
     if (!items) {
         return res.json({
@@ -81,8 +67,8 @@ oaklands.openapi(route, async (res) => {
     }
 
     return res.json({
-        trees: convertMaterialValues(items.Values.Trees),
-        rocks: convertMaterialValues(items.Values.Rocks),
-        ores: convertMaterialValues(items.Values.Ores)
+        trees: items.Trees,
+        rocks: items.Rocks,
+        ores: items.Ores
     }, 200);
 });

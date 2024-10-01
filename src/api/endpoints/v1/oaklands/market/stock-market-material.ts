@@ -1,5 +1,5 @@
 import { createRoute } from "@hono/zod-openapi";
-import type { BaseMaterial, StockMarketMemoryStore } from "@/lib/types";
+import type { BaseMaterial, MaterialStockMarket } from "@/lib/types/experience";
 import StockMarketMaterial, { type StockMarketMaterialSchema } from "@/lib/schemas/StockMarketMaterial";
 import oaklands from "@/api/routes/oaklands";
 import ErrorMessage from "@/lib/schemas/ErrorMessage";
@@ -45,7 +45,7 @@ const route = createRoute({
 
 oaklands.openapi(route, async (res) => {
     const materialType = res.req.param('material_type');
-    const items = cache.get<StockMarketMemoryStore>('material_stock_market');
+    const items = cache.get<MaterialStockMarket>('material_stock_market');
 
     if (!items) {
         return res.json({
@@ -54,7 +54,7 @@ oaklands.openapi(route, async (res) => {
         }, 500);
     }
 
-    const materials = Object.values(items.Values)
+    const materials = Object.values(items)
         .reduce<Record<string, BaseMaterial>>((acc, curr) => ({ ...acc, ...curr }), {});
     const material = materials[materialType];
 
@@ -65,11 +65,5 @@ oaklands.openapi(route, async (res) => {
         }, 404);
     }
 
-    return res.json({
-        name: materialType.split('_').map((v) => v.charAt(0).toUpperCase() + v.substring(1)).join(' '),
-        base_value: material.BasePrice,
-        current_value: material.Price,
-        current_difference: material.CurrentPercentage,
-        last_difference: material.LastPercentage
-    }, 200);
+    return res.json(material, 200);
 });

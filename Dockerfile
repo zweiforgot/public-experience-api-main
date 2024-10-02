@@ -10,4 +10,4 @@ COPY . /usr/src/public-experience-api
 
 RUN bun i
 
-CMD ["bun", "run", "deploy"]
+CMD ["bun", "run", "deploy:prod"]

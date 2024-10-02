@@ -17,9 +17,14 @@ const cacheRunners = {
 
 await Promise.all(Object.entries(cacheRunners).map(([_, func]) => func()));
 
-NodeSchedule.scheduleJob('reset_stockmarket', '0 16 * * *', async () => 
+NodeSchedule.scheduleJob('reset_classic_shop', '0 16 * * *', async () => 
     await Promise.all([
         cacheRunners.classicShop(),
+    ])
+);
+
+NodeSchedule.scheduleJob('reset_stockmarket', '0 4,10,16,20 * * *', async () => 
+    await Promise.all([
         cacheRunners.materialStockMarket()
     ])
 );

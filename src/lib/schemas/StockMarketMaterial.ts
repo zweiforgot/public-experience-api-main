@@ -2,6 +2,7 @@ import { z } from '@hono/zod-openapi';
 
 const StockMarketMaterial = z.object({
     name: z.string(),
+    value_type: z.string().optional(),
     base_value: z.number(),
     current_value: z.number(),
     current_difference: z.number(),

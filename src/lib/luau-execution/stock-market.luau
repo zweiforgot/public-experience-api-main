@@ -46,4 +46,7 @@ end
 
 MaterialValues:UpdateMaterialValues()
 
+MaterialValues.LastRandom = Random.new(MaterialValues.MaterialValuesLastSeed)
+MaterialValues.CurrentRandom = Random.new(MaterialValues.MaterialValuesUpdatedSeed)
+
 return MaterialValues:CreateFormattedValues()

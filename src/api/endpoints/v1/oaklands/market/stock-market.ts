@@ -6,6 +6,7 @@ import ErrorMessage from "@/lib/schemas/ErrorMessage";
 import cache from "@/lib/cache";
 
 const example: StockMarketSchema = {
+    reset_time: new Date("2024-10-02T04:00:00.000Z"),
     trees: {
         raw_petrified_oak: {
             name: "Raw Petrified Oak",
@@ -56,8 +57,22 @@ const route = createRoute({
     }
 });
 
+function _calculateResetTime(current: number) {
+    const date = new Date();
+
+    // 12AM, 6AM, 12PM, 6PM (EST)
+    const times = [ 4, 10, 16, 20 ];
+    const hours = times.findIndex((time) => current < time);
+
+    date.setUTCHours(times[hours], 0, 0, 0);
+
+    return date;
+}
+
 oaklands.openapi(route, async (res) => {
     const items = cache.get<MaterialStockMarket>('material_stock_market');
+
+    const reset = _calculateResetTime(new Date().getUTCHours());
 
     if (!items) {
         return res.json({
@@ -67,6 +82,7 @@ oaklands.openapi(route, async (res) => {
     }
 
     return res.json({
+        reset_time: reset,
         trees: items.Trees,
         rocks: items.Rocks,
         ores: items.Ores

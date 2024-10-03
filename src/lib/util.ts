@@ -21,7 +21,7 @@ function _readLuaFile(fileName: string): string | null {
     return code;
 }
 
-async function _executeLuau<Data extends Object>(script: string, info: { universeId: number, placeId: number }) {
+async function _executeLuau<Data extends Object>(script: string, info: { universeId: number, placeId: number, version?: number }) {
     const { data: { universeId, placeId, version, sessionId, taskId } } = await LuauExecutionApi.executeLuau({
         ...info, script
     });
@@ -74,7 +74,7 @@ export async function getMaterialStockMarket() {
     const script = _readLuaFile('stock-market.luau');
     if (!script) return;
 
-    const result = await _executeLuau<MaterialStockMarket>(script, { universeId: UniverseIDs.Oaklands, placeId: OaklandsPlaceIDs.Staging });
+    const result = await _executeLuau<MaterialStockMarket>(script, { universeId: UniverseIDs.Oaklands, placeId: OaklandsPlaceIDs.Staging, version: 12947 });
     if (!result) return;
 
     return result[0];

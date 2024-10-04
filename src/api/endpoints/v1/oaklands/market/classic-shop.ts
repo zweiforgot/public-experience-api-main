@@ -54,7 +54,7 @@ oaklands.openapi(route, async (res) => {
     }
 
     const reset = new Date();
-    reset.setUTCHours(16, 0, 0, 0);
+    reset.setUTCHours(reset.getUTCHours() >= 12 ? 0 : 12, 0, 0, 0);
 
     return res.json({
         reset_time: reset,

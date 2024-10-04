@@ -1,5 +1,6 @@
 export type BaseMaterial = {
     name: string;
+    value_type: string;
     base_value: number;
     current_value: number;
     current_difference: number;

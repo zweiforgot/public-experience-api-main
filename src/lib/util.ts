@@ -74,7 +74,7 @@ export async function getMaterialStockMarket() {
     const script = _readLuaFile('stock-market.luau');
     if (!script) return;
 
-    const result = await _executeLuau<MaterialStockMarket>(script, { universeId: UniverseIDs.Oaklands, placeId: OaklandsPlaceIDs.Staging, version: 12947 });
+    const result = await _executeLuau<MaterialStockMarket>(script, { universeId: UniverseIDs.Oaklands, placeId: OaklandsPlaceIDs.Production });
     if (!result) return;
 
     return result[0];
@@ -88,7 +88,7 @@ export async function getCurrentClassicShop() {
     const script = _readLuaFile('classic-shop.luau');
     if (!script) return;
 
-    const result = await _executeLuau<string[]>(script, { universeId: UniverseIDs.Oaklands, placeId: OaklandsPlaceIDs.Staging });
+    const result = await _executeLuau<string[]>(script, { universeId: UniverseIDs.Oaklands, placeId: OaklandsPlaceIDs.Production });
     if (!result) return;
 
     return result[0];

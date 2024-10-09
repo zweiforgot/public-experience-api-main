@@ -1,6 +1,6 @@
 import { createRoute } from "@hono/zod-openapi";
 import oaklands from "@/api/routes/oaklands";
-import ClassicShop, { type ClassicShopSchema } from "@/lib/schemas/ClassicShop";
+import ClassicShop, { type ClassicShopSchema } from "@/lib/schemas/Oaklands/ClassicShop";
 import ErrorMessage from "@/lib/schemas/ErrorMessage";
 import cache from "@/lib/cache";
 

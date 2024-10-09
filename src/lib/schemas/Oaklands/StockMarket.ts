@@ -1,5 +1,5 @@
 import { z } from '@hono/zod-openapi';
-import StockMarketMaterial from '@/lib/schemas/StockMarketMaterial';
+import StockMarketMaterial from '@/lib/schemas/Oaklands/StockMarketMaterial';
 
 const StockMarket = z.object({
     reset_time: z.date(),

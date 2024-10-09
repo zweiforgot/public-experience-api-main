@@ -1,7 +1,7 @@
 import { createRoute } from "@hono/zod-openapi";
 import type { MaterialStockMarket } from "@/lib/types/experience";
 import oaklands from "@/api/routes/oaklands";
-import StockMarket, { type StockMarketSchema } from "@/lib/schemas/StockMarket";
+import StockMarket, { type StockMarketSchema } from "@/lib/schemas/Oaklands/StockMarket";
 import ErrorMessage from "@/lib/schemas/ErrorMessage";
 import cache from "@/lib/cache";
 

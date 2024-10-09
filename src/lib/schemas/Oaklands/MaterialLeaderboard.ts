@@ -3,6 +3,7 @@ import MaterialLeaderboardItem from '@/lib/schemas/Oaklands/MaterialLeaderboardI
 
 const MaterialLeaderboard = z.object({
     last_update: z.date(),
+    reset_time: z.date(),
     leaderboards: z.record(z.record(MaterialLeaderboardItem))
 });
 

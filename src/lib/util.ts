@@ -4,6 +4,8 @@ import { LuauExecutionApi } from "openblox/cloud";
 import { pollMethod } from 'openblox/helpers';
 import type { MaterialStockMarket } from '@/lib/types/experience';
 import { OaklandsPlaceIDs, UniverseIDs } from '@/lib/types/enums';
+import database from './database';
+import type { MaterialLeaderboardItemSchema } from './schemas/Oaklands/MaterialLeaderboardItem';
 
 /**
  * Read the contents of a Lua/Luau file.
@@ -21,7 +23,13 @@ function _readLuaFile(fileName: string): string | null {
     return code;
 }
 
-async function _executeLuau<Data extends Object>(script: string, info: { universeId: number, placeId: number, version?: number }) {
+/**
+ * Execute Luau.
+ * @param script The script to run.
+ * @param info The info to include with the task.
+ * @returns {Promise<Data[]>}
+ */
+async function _executeLuau<Data extends Object>(script: string, info: { universeId: number, placeId: number, version?: number }): Promise<Data[]> {
     const { data: { universeId, placeId, version, sessionId, taskId } } = await LuauExecutionApi.executeLuau({
         ...info, script
     });
@@ -92,4 +100,38 @@ export async function getCurrentClassicShop() {
     if (!result) return;
 
     return result[0];
+}
+
+export async function getMaterialLeaderboard() {
+    const client = await database.connect();
+
+    await client.query('BEGIN READ ONLY;');
+
+    const { rows } = await client.query<{ position: number; material_type: string; cash_amount: number; currency_type: string }>(
+        `SELECT
+            CAST(ROW_NUMBER() OVER (PARTITION BY currency_type ORDER BY cash_amount DESC) AS INT) as position,
+            *
+        FROM oaklands_daily_materials_sold_current
+        GROUP BY material_type, currency_type
+        ORDER BY cash_amount DESC;`
+    );
+
+    const leaderboards: Record<string, Record<string, MaterialLeaderboardItemSchema>> = {};
+
+    for (const { position, material_type, cash_amount, currency_type } of rows) {
+        const key = material_type.split(/(?=[A-Z])/).map((l) => l.toLowerCase()).join('_');
+        const name = material_type.split(/(?=[A-Z])/).join(' ');
+
+        const currency = currency_type.toLowerCase();
+
+        if (!leaderboards[currency]) {
+            leaderboards[currency] = {};
+        }
+
+        leaderboards[currency][key] = { position, name, value: Number(cash_amount) };
+    }
+
+    await client.query('COMMIT;');
+
+    return leaderboards;
 }

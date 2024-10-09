@@ -102,7 +102,11 @@ export async function getCurrentClassicShop() {
     return result[0];
 }
 
-export async function getMaterialLeaderboard() {
+/**
+ * Fetch the current material leaderboard.
+ * @returns {Promise<Record<string, Record<string, MaterialLeaderboardItemSchema>>>}
+ */
+export async function getMaterialLeaderboard(): Promise<Record<string, Record<string, MaterialLeaderboardItemSchema>>> {
     const client = await database.connect();
 
     await client.query('BEGIN READ ONLY;');

@@ -40,7 +40,7 @@ const route = createRoute({
     method: "get",
     path: "/stock-market",
     tags: ['Oaklands'],
-    description: "Fetch the current material stock market values.",
+    description: "Fetch the current material stock market values. The stock market resets every 6 hours.",
     responses: {
         200: {
             content: {

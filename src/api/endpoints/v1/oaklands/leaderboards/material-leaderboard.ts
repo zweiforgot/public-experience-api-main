@@ -8,7 +8,7 @@ const route = createRoute({
     method: "get",
     path: "/current-material-leaderboard",
     tags: ['Oaklands'],
-    description: "Get today\'s current material leaderboard. The leaderboard resets daily at 12PM UTC.",
+    description: "Get today\'s current material leaderboard. The leaderboard resets daily at 12AM UTC.",
     responses: {
         200: {
             content: {

@@ -17,7 +17,7 @@ const route = createRoute({
     method: "get",
     path: "/stock-market/{material_type}",
     tags: ['Oaklands'],
-    description: "Fetch the current material stock market values.",
+    description: "Fetch a specific value from the stock market.",
     parameters: [
         { name: 'material_type', in: 'path', required: true }
     ],

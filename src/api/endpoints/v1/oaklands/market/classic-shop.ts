@@ -26,7 +26,7 @@ const route = createRoute({
     method: "get",
     path: "/classic-shop",
     tags: ['Oaklands'],
-    description: "",
+    description: "Get the current classic shop. The shop resets every 12 hours.",
     responses: {
         200: {
             content: {

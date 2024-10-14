@@ -14,7 +14,7 @@ const cacheRunners = {
         cache.set('classic_shop', values);
     },
     materialLeaderboard: async () => {
-        const values = await getMaterialLeaderboard().catch(() => ({}));
+        const values = await getMaterialLeaderboard().catch((e) => console.log(e));
 
         const reset = new Date();
         reset.setUTCDate(reset.getUTCDate() + 1);

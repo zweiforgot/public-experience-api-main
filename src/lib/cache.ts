@@ -14,7 +14,7 @@ const cacheRunners = {
         cache.set('classic_shop', values);
     },
     materialLeaderboard: async () => {
-        const values = await getMaterialLeaderboard();
+        const values = await getMaterialLeaderboard().catch(() => ({}));
 
         const reset = new Date();
         reset.setUTCDate(reset.getUTCDate() + 1);
@@ -45,7 +45,7 @@ NodeSchedule.scheduleJob('reset_stockmarket', '0 4,10,16,20 * * *', async () =>
 );
 
 // Runs every 5th minute
-NodeSchedule.scheduleJob('refetch_leaderboard', '*/6 * * * *', async() => 
+NodeSchedule.scheduleJob('refetch_leaderboard', '*/5 * * * *', async() => 
     await Promise.all([
         cacheRunners.materialLeaderboard()
     ])

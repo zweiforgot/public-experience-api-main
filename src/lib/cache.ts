@@ -45,7 +45,7 @@ NodeSchedule.scheduleJob('reset_stockmarket', '0 4,10,16,20 * * *', async () =>
 );
 
 // Runs every 5th minute
-NodeSchedule.scheduleJob('refetch_leaderboard', '*/5 * * * *', async() => 
+NodeSchedule.scheduleJob('refetch_leaderboard', '*/6 * * * *', async() => 
     await Promise.all([
         cacheRunners.materialLeaderboard()
     ])

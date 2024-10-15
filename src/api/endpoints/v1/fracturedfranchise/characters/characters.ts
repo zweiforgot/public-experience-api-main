@@ -26,7 +26,7 @@ const route = createRoute({
 });
 
 fracturedfranchise.openapi(route, async (res) => {
-    const characters = getCharacters();
+    const characters = await getCharacters();
 
     if (!characters) {
         return res.json({
@@ -35,5 +35,5 @@ fracturedfranchise.openapi(route, async (res) => {
         }, 500);
     }
     
-    return res.json({characters}, 200);
+    return res.json({ characters }, 200);
 });

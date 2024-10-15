@@ -1,6 +1,6 @@
 import NodeSchedule from "node-schedule";
-import { getMaterialStockMarket, getCurrentClassicShop, getMaterialLeaderboard } from "@/lib/util";
 import container from "@/setup/container";
+import { getMaterialStockMarket, getCurrentClassicShop, getMaterialLeaderboard } from "@/lib/util";
 
 const cacheRunners = {
     materialStockMarket: async () => {
@@ -8,21 +8,31 @@ const cacheRunners = {
         container.cache.set('material_stock_market', values);
     },
     classicShop: async () => {
+        const reset = new Date();
+
+        if (reset.getUTCHours() >= 16) {
+            reset.setUTCDate(reset.getUTCDate() + 1);
+        }
+
+        reset.setUTCHours(reset.getUTCHours() >= 16 ? 4 : 16, 0, 0, 0);
+
+        if (await container.redis.exists('classic_shop')) {
+            const [ next_reset ]: [number, string[]] = JSON.parse(await container.redis.get('classic_shop') as string);
+            if (next_reset > reset.getTime()) return;
+        }
+
         const values = await getCurrentClassicShop();
-        container.cache.set('classic_shop', values);
+
+        container.redis.set('classic_shop', JSON.stringify([reset.getTime(), values]));
     },
     materialLeaderboard: async () => {
-        const values = await getMaterialLeaderboard();
-
         const reset = new Date();
         reset.setUTCDate(reset.getUTCDate() + 1);
         reset.setUTCHours(0, 0, 0, 0);
 
-        container.cache.set('material_leaderboard', {
-            reset_time: reset,
-            last_update: new Date().toISOString(),
-            leaderboards: values
-        });
+        const values = await getMaterialLeaderboard();
+
+        container.redis.set('material_leaderboard', JSON.stringify([reset.getTime(), new Date().getTime(), values]));
     }
 };
 

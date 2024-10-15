@@ -44,20 +44,13 @@ const route = createRoute({
 });
 
 oaklands.openapi(route, async (res) => {
-    const items = container.cache.get<string[]>('classic_shop');
-    
-    if (!items) {
+    if (!(await container.redis.exists('classic_shop'))) {
         return res.json({
             error: "INTERNAL_ERROR",
-            message: "There was an internal error when requesting."
+            message: "The contents for the shop are currently not cached."
         }, 500);
     }
 
-    const reset = new Date();
-    reset.setUTCHours(reset.getUTCHours() >= 16 ? 4 : 16, 0, 0, 0);
-
-    return res.json({
-        reset_time: reset,
-        items
-    }, 200);
-})
+    const [ reset_time, items ]: [number, string[]] = JSON.parse((await container.redis.get('classic_shop'))!);
+    return res.json({ reset_time: new Date(reset_time), items }, 200);
+});

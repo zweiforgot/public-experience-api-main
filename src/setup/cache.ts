@@ -7,9 +7,13 @@ const cacheRunners = {
         const reset = ((current: number) => {
             const date = new Date();
 
+            if (date.getUTCHours() >= 16) {
+                date.setUTCDate(date.getUTCDate() + 1);
+            }
+
             // 12AM, 6AM, 12PM, 6PM (EST)
             const times = [ 4, 10, 16, 20 ];
-            const hours = times.findIndex((time) => current <= time);
+            const hours = times.findIndex((time) => current >= time || current <= time);
 
             date.setUTCHours(times[hours], 0, 0, 0);
 

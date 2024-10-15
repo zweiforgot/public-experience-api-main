@@ -1,6 +1,6 @@
 import { createRoute } from "@hono/zod-openapi";
-import MaterialLeaderboard, { type MaterialLeaderboardSchema } from "@/lib/schemas/Oaklands/MaterialLeaderboard";
 import type { MaterialLeaderboardItemSchema } from "@/lib/schemas/Oaklands/MaterialLeaderboardItem";
+import MaterialLeaderboard from "@/lib/schemas/Oaklands/MaterialLeaderboard";
 import ErrorMessage from "@/lib/schemas/ErrorMessage";
 import oaklands from "@/api/routes/oaklands";
 import container from "@/setup/container";

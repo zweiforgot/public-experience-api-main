@@ -4,19 +4,18 @@ import { getMaterialStockMarket, getCurrentClassicShop, getMaterialLeaderboard }
 
 const cacheRunners = {
     materialStockMarket: async () => {
-        const reset = ((current: number) => {
+        const reset = ((currentHours: number) => {
             const date = new Date();
 
-            if (date.getUTCHours() >= 16) {
+            currentHours = (currentHours + 20) % 24;
+            const nextResetHour = (Math.ceil(currentHours / 6) * 6) % 24
+
+            if (nextResetHour === 0) {
                 date.setUTCDate(date.getUTCDate() + 1);
             }
-
-            // 12AM, 6AM, 12PM, 6PM (EST)
-            const times = [ 4, 10, 16, 20 ];
-            const hours = times.findIndex((time) => current >= time || current <= time);
-
-            date.setUTCHours(times[hours], 0, 0, 0);
-
+        
+            date.setUTCHours(nextResetHour + 4, 0, 0, 0);
+        
             return date;
         })(new Date().getUTCHours());
 

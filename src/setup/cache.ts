@@ -1,17 +1,15 @@
-import NodeCache from "node-cache";
 import NodeSchedule from "node-schedule";
 import { getMaterialStockMarket, getCurrentClassicShop, getMaterialLeaderboard } from "@/lib/util";
-
-const cache = new NodeCache();
+import container from "@/setup/container";
 
 const cacheRunners = {
     materialStockMarket: async () => {
         const values = await getMaterialStockMarket();
-        cache.set('material_stock_market', values);
+        container.cache.set('material_stock_market', values);
     },
     classicShop: async () => {
         const values = await getCurrentClassicShop();
-        cache.set('classic_shop', values);
+        container.cache.set('classic_shop', values);
     },
     materialLeaderboard: async () => {
         const values = await getMaterialLeaderboard();
@@ -20,7 +18,7 @@ const cacheRunners = {
         reset.setUTCDate(reset.getUTCDate() + 1);
         reset.setUTCHours(0, 0, 0, 0);
 
-        cache.set('material_leaderboard', {
+        container.cache.set('material_leaderboard', {
             reset_time: reset,
             last_update: new Date().toISOString(),
             leaderboards: values
@@ -50,5 +48,3 @@ NodeSchedule.scheduleJob('refetch_leaderboard', '*/5 * * * *', async() =>
         cacheRunners.materialLeaderboard()
     ])
 );
-
-export default cache;

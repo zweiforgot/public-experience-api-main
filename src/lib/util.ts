@@ -5,7 +5,7 @@ import { pollMethod } from 'openblox/helpers';
 import type { MaterialStockMarket } from '@/lib/types/experience';
 import type { MaterialLeaderboardItemSchema } from '@/lib/schemas/Oaklands/MaterialLeaderboardItem';
 import { OaklandsPlaceIDs, UniverseIDs } from '@/lib/types/enums';
-import database from '@/lib/database';
+import container from '@/setup/container';
 
 /**
  * Read the contents of a Lua/Luau file.
@@ -107,7 +107,7 @@ export async function getCurrentClassicShop() {
  * @returns {Promise<Record<string, Record<string, MaterialLeaderboardItemSchema>>>}
  */
 export async function getMaterialLeaderboard(): Promise<Record<string, Record<string, MaterialLeaderboardItemSchema>>> {
-    const client = await database.connect();
+    const client = await container.database.connect();
 
     await client.query('BEGIN READ ONLY;');
 

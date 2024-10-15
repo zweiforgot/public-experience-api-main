@@ -2,7 +2,7 @@ import { createRoute } from "@hono/zod-openapi";
 import oaklands from "@/api/routes/oaklands";
 import ClassicShop, { type ClassicShopSchema } from "@/lib/schemas/Oaklands/ClassicShop";
 import ErrorMessage from "@/lib/schemas/ErrorMessage";
-import cache from "@/lib/cache";
+import container from "@/setup/container";
 
 const example: ClassicShopSchema = {
     reset_time: new Date("2024-10-02T16:00:00.000Z"),
@@ -44,7 +44,7 @@ const route = createRoute({
 });
 
 oaklands.openapi(route, async (res) => {
-    const items = cache.get<string[]>('classic_shop');
+    const items = container.cache.get<string[]>('classic_shop');
     
     if (!items) {
         return res.json({

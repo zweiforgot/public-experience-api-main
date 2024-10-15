@@ -3,7 +3,7 @@ import type { BaseMaterial, MaterialStockMarket } from "@/lib/types/experience";
 import StockMarketMaterial, { type StockMarketMaterialSchema } from "@/lib/schemas/Oaklands/StockMarketMaterial";
 import oaklands from "@/api/routes/oaklands";
 import ErrorMessage from "@/lib/schemas/ErrorMessage";
-import cache from "@/lib/cache";
+import container from "@/setup/container";
 
 const example: StockMarketMaterialSchema = {
     name: "Raw Petrified Oak",
@@ -45,7 +45,7 @@ const route = createRoute({
 
 oaklands.openapi(route, async (res) => {
     const materialType = res.req.param('material_type');
-    const items = cache.get<MaterialStockMarket>('material_stock_market');
+    const items = container.cache.get<MaterialStockMarket>('material_stock_market');
 
     if (!items) {
         return res.json({

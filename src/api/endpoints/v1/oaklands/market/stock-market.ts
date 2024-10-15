@@ -3,7 +3,7 @@ import type { MaterialStockMarket } from "@/lib/types/experience";
 import oaklands from "@/api/routes/oaklands";
 import StockMarket, { type StockMarketSchema } from "@/lib/schemas/Oaklands/StockMarket";
 import ErrorMessage from "@/lib/schemas/ErrorMessage";
-import cache from "@/lib/cache";
+import container from "@/setup/container";
 
 const example: StockMarketSchema = {
     reset_time: new Date("2024-10-02T04:00:00.000Z"),
@@ -70,7 +70,7 @@ function _calculateResetTime(current: number) {
 }
 
 oaklands.openapi(route, async (res) => {
-    const items = cache.get<MaterialStockMarket>('material_stock_market');
+    const items = container.cache.get<MaterialStockMarket>('material_stock_market');
 
     const reset = _calculateResetTime(new Date().getUTCHours());
 

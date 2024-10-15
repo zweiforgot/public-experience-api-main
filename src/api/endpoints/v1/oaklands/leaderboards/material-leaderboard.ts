@@ -2,7 +2,7 @@ import { createRoute } from "@hono/zod-openapi";
 import MaterialLeaderboard, { type MaterialLeaderboardSchema } from "@/lib/schemas/Oaklands/MaterialLeaderboard";
 import ErrorMessage from "@/lib/schemas/ErrorMessage";
 import oaklands from "@/api/routes/oaklands";
-import cache from "@/lib/cache";
+import container from "@/setup/container";
 
 const route = createRoute({
     method: "get",
@@ -26,7 +26,7 @@ const route = createRoute({
 });
 
 oaklands.openapi(route, async (res) => {
-    const items = cache.get<MaterialLeaderboardSchema>('material_leaderboard');
+    const items = container.cache.get<MaterialLeaderboardSchema>('material_leaderboard');
 
     if (!items) {
         return res.json({

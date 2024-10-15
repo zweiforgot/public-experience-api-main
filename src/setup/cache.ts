@@ -8,7 +8,7 @@ const cacheRunners = {
             const date = new Date();
 
             currentHours = (currentHours + 20) % 24;
-            const nextResetHour = (Math.ceil(currentHours / 6) * 6) % 24
+            const nextResetHour = (Math.ceil(currentHours / 6) * 6) % 24;
 
             if (nextResetHour === 0) {
                 date.setUTCDate(date.getUTCDate() + 1);
@@ -19,10 +19,10 @@ const cacheRunners = {
             return date;
         })(new Date().getUTCHours());
 
-        if (await container.redis.exists('material_stock_market')) {
-            const [ next_reset ]: [number, string[]] = JSON.parse(await container.redis.get('material_stock_market') as string);
-            if (next_reset >= reset.getTime()) return;
-        }
+        // if (await container.redis.exists('material_stock_market')) {
+        //     const [ next_reset ]: [number, string[]] = JSON.parse(await container.redis.get('material_stock_market') as string);
+        //     if (next_reset >= reset.getTime()) return;
+        // }
 
         const values = await getMaterialStockMarket();
 

@@ -3,9 +3,9 @@ import { readdirSync, readFileSync } from 'fs';
 import { LuauExecutionApi } from "openblox/cloud";
 import { pollMethod } from 'openblox/helpers';
 import type { MaterialStockMarket } from '@/lib/types/experience';
+import type { MaterialLeaderboardItemSchema } from '@/lib/schemas/Oaklands/MaterialLeaderboardItem';
 import { OaklandsPlaceIDs, UniverseIDs } from '@/lib/types/enums';
-import database from './database';
-import type { MaterialLeaderboardItemSchema } from './schemas/Oaklands/MaterialLeaderboardItem';
+import database from '@/lib/database';
 
 /**
  * Read the contents of a Lua/Luau file.

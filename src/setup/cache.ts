@@ -4,8 +4,26 @@ import { getMaterialStockMarket, getCurrentClassicShop, getMaterialLeaderboard }
 
 const cacheRunners = {
     materialStockMarket: async () => {
+        const reset = ((current: number) => {
+            const date = new Date();
+
+            // 12AM, 6AM, 12PM, 6PM (EST)
+            const times = [ 4, 10, 16, 20 ];
+            const hours = times.findIndex((time) => current <= time);
+
+            date.setUTCHours(times[hours], 0, 0, 0);
+
+            return date;
+        })(new Date().getUTCHours());
+
+        if (await container.redis.exists('material_stock_market')) {
+            const [ next_reset ]: [number, string[]] = JSON.parse(await container.redis.get('material_stock_market') as string);
+            if (next_reset >= reset.getTime()) return;
+        }
+
         const values = await getMaterialStockMarket();
-        container.cache.set('material_stock_market', values);
+
+        container.redis.set('material_stock_market', JSON.stringify([reset.getTime(), values]));
     },
     classicShop: async () => {
         const reset = new Date();

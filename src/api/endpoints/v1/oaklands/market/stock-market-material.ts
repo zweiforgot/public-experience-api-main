@@ -44,15 +44,15 @@ const route = createRoute({
 });
 
 oaklands.openapi(route, async (res) => {
-    const materialType = res.req.param('material_type');
-    const items = container.cache.get<MaterialStockMarket>('material_stock_market');
-
-    if (!items) {
+    if (!(await container.redis.exists('material_stock_market'))) {
         return res.json({
             error: "INTERNAL_ERROR",
-            message: "There was an internal error when requesting."
+            message: "The contents for the shop are currently not cached."
         }, 500);
     }
+
+    const materialType = res.req.param('material_type');
+    const [ _, items ]: [number, MaterialStockMarket] = JSON.parse((await container.redis.get('material_stock_market'))!);
 
     const materials = Object.values(items)
         .reduce<Record<string, BaseMaterial>>((acc, curr) => ({ ...acc, ...curr }), {});

@@ -57,32 +57,18 @@ const route = createRoute({
     }
 });
 
-function _calculateResetTime(current: number) {
-    const date = new Date();
-
-    // 12AM, 6AM, 12PM, 6PM (EST)
-    const times = [ 4, 10, 16, 20 ];
-    const hours = times.findIndex((time) => current < time);
-
-    date.setUTCHours(times[hours], 0, 0, 0);
-
-    return date;
-}
-
 oaklands.openapi(route, async (res) => {
-    const items = container.cache.get<MaterialStockMarket>('material_stock_market');
-
-    const reset = _calculateResetTime(new Date().getUTCHours());
-
-    if (!items) {
+    if (!(await container.redis.exists('material_stock_market'))) {
         return res.json({
             error: "INTERNAL_ERROR",
-            message: "There was an issue fetching the stock market."
+            message: "The contents for the shop are currently not cached."
         }, 500);
     }
 
+    const [ reset_time, items ]: [number, MaterialStockMarket] = JSON.parse((await container.redis.get('material_stock_market'))!);
+
     return res.json({
-        reset_time: reset,
+        reset_time: new Date(reset_time),
         trees: items.Trees,
         rocks: items.Rocks,
         ores: items.Ores

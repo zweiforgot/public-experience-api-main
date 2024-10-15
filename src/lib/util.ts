@@ -27,27 +27,31 @@ function _readLuaFile(fileName: string): string | null {
  * Execute Luau.
  * @param script The script to run.
  * @param info The info to include with the task.
- * @returns {Promise<Data[]>}
+ * @returns {Promise<Data[] | null>}
  */
-async function _executeLuau<Data extends Object>(script: string, info: { universeId: number, placeId: number, version?: number }): Promise<Data[]> {
-    const { data: { universeId, placeId, version, sessionId, taskId } } = await LuauExecutionApi.executeLuau({
-        ...info, script
-    });
+async function _executeLuau<Data extends Object>(script: string, info: { universeId: number, placeId: number, version?: number }): Promise<Data[] | null> {
+    try {
+        const { data: { universeId, placeId, version, sessionId, taskId } } = await LuauExecutionApi.executeLuau({
+            ...info, script
+        });
+        
+        const { data: executedTask } = await pollMethod(
+            LuauExecutionApi.luauExecutionTask<Data[]>({ universeId, placeId, version, sessionId, taskId }),
+            async ({ data }, stopPolling) => data.state === "COMPLETE" && stopPolling(),
+        );
     
-    const { data: executedTask } = await pollMethod(
-        LuauExecutionApi.luauExecutionTask<Data[]>({ universeId, placeId, version, sessionId, taskId }),
-        async ({ data }, stopPolling) => data.state === "COMPLETE" && stopPolling(),
-    );
-
-    if (typeof executedTask.output !== 'object') {
-        throw new Error('Unexpected return type');
+        if (typeof executedTask.output !== 'object') {
+            throw new Error('Unexpected return type');
+        }
+    
+        if (executedTask.output === null) {
+            throw new Error('Unexpected return type');
+        }
+    
+        return executedTask.output.results;
+    } catch (e) {
+        return null;
     }
-
-    if (executedTask.output === null) {
-        throw new Error('Unexpected return type');
-    }
-
-    return executedTask.output.results;
 }
 
 /**
@@ -83,7 +87,7 @@ export async function getMaterialStockMarket() {
     if (!script) return;
 
     const result = await _executeLuau<MaterialStockMarket>(script, { universeId: UniverseIDs.Oaklands, placeId: OaklandsPlaceIDs.Production });
-    if (!result) return;
+    if (!result) return await new Promise((res) => setTimeout(async () => res(await getMaterialStockMarket()), 1000 * 60));
 
     return result[0];
 }
@@ -97,7 +101,7 @@ export async function getCurrentClassicShop() {
     if (!script) return;
 
     const result = await _executeLuau<string[]>(script, { universeId: UniverseIDs.Oaklands, placeId: OaklandsPlaceIDs.Production });
-    if (!result) return;
+    if (!result) return await new Promise((res) => setTimeout(async () => res(await getCurrentClassicShop()), 1000 * 60));
 
     return result[0];
 }

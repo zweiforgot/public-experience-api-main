@@ -136,6 +136,7 @@ export async function getMaterialLeaderboard(): Promise<Record<string, Record<st
     }
 
     await client.query('COMMIT;');
+    client.release();
 
     return leaderboards;
 }

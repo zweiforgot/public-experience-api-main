@@ -45,12 +45,10 @@ NodeSchedule.scheduleJob('reset_stockmarket', '0 4,10,16,20 * * *', async () =>
 );
 
 // Runs every 5th minute
-const emit = NodeSchedule
-    .scheduleJob('refetch_leaderboard', '*/5 * * * *', async() => 
-        await Promise.all([
-            cacheRunners.materialLeaderboard()
-        ])
-    )
-    .on('error', (e) => console.log(e))
+NodeSchedule.scheduleJob('refetch_leaderboard', '*/5 * * * *', async() => 
+    await Promise.all([
+        cacheRunners.materialLeaderboard()
+    ])
+);
 
 export default cache;

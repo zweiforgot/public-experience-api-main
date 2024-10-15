@@ -1,0 +1,281 @@
+[
+    {
+        "F1_CHICA": {
+            "ActionInfo": [],
+            "Category": "FNAF 1",
+            "Animations": {
+                "Walk": 94689371083672,
+                "Idle": 113639623723881
+            },
+            "Name": "Chica the Chicken",
+            "PriceInfo": {
+                "Cost": 1000,
+                "PurchaseType": "Tokens"
+            },
+            "ID": "F1_CHICA",
+            "Description": "Golden Freddy, not much is known about this.. Freddy? Staff around Freddy's have discussed seeing this character but in very strange appearances, typically involving a child standing next to it.. but then they both disappear.. but who knows, maybe our staff are just crazy!",
+            "MovementInfo": {
+                "CrawlInfo": {
+                    "CanCrawl": false,
+                    "CrawlSpeed": 4
+                },
+                "WalkSpeed": 2.85,
+                "RunInfo": {
+                    "CanRun": true,
+                    "RunSpeed": 8
+                }
+            },
+            "PhysicalMappings": {
+                "Head": "Mask"
+            },
+            "AccentColor": null,
+            "Media": {
+                "Bust": "rbxassetid://16298531388",
+                "Fullbody": "rbxassetid://13554931765",
+                "Headshot": "rbxassetid://14269517352"
+            }
+        },
+        "DEV_WENDELL": {
+            "AccentColor": null,
+            "ActionInfo": {
+                "Fortnite": [
+                    {
+                        "DisplayName": "Gold Scar",
+                        "Cooldown": 3,
+                        "DefaultBind": null,
+                        "Animation": 18100608314,
+                        "DefaultState": true,
+                        "Description": "Epic dance",
+                        "Type": "Toggle"
+                    },
+                    {
+                        "DisplayName": "Griddy",
+                        "Cooldown": 3,
+                        "DefaultBind": null,
+                        "Animation": 18100608314,
+                        "DefaultState": true,
+                        "Description": "Epic dance",
+                        "Type": "Toggle"
+                    },
+                    {
+                        "DisplayName": "Gold Tac",
+                        "Cooldown": 3,
+                        "DefaultBind": null,
+                        "Animation": 18100608314,
+                        "DefaultState": true,
+                        "Description": "Epic dance",
+                        "Type": "Toggle"
+                    },
+                    {
+                        "DisplayName": "Default Dance",
+                        "Cooldown": 3,
+                        "DefaultBind": null,
+                        "Animation": 18100608314,
+                        "DefaultState": true,
+                        "Description": "Epic dance",
+                        "Type": "Toggle"
+                    },
+                    {
+                        "DisplayName": "Default Da2323nce",
+                        "Cooldown": 3,
+                        "DefaultBind": null,
+                        "Animation": 18100608314,
+                        "DefaultState": true,
+                        "Description": "Epic dance",
+                        "Type": "Toggle"
+                    },
+                    {
+                        "DisplayName": "Default Da2323nce",
+                        "Cooldown": 3,
+                        "DefaultBind": null,
+                        "Animation": 18100608314,
+                        "DefaultState": true,
+                        "Description": "Epic dance",
+                        "Type": "Toggle"
+                    }
+                ],
+                "Actions": [
+                    {
+                        "DisplayName": "Toggle Jaw",
+                        "DefaultBind": null,
+                        "States": [],
+                        "DefaultState": true,
+                        "Description": "Open and close your jaw! How scary...",
+                        "Type": "Toggle"
+                    },
+                    {
+                        "DisplayName": "Hit that jig",
+                        "Cooldown": 3,
+                        "DefaultBind": null,
+                        "Animation": 18100608314,
+                        "DefaultState": true,
+                        "Description": "Epic dance",
+                        "Type": "Toggle"
+                    }
+                ],
+                "Among Us": [
+                    {
+                        "DisplayName": "Be sus",
+                        "Cooldown": 3,
+                        "DefaultBind": null,
+                        "Animation": 18100608314,
+                        "DefaultState": true,
+                        "Description": "Epic dance",
+                        "Type": "Toggle"
+                    },
+                    {
+                        "DisplayName": "Be imposter",
+                        "Cooldown": 3,
+                        "DefaultBind": null,
+                        "Animation": 18100608314,
+                        "DefaultState": true,
+                        "Description": "Epic dance",
+                        "Type": "Toggle"
+                    }
+                ]
+            },
+            "Category": "Staff",
+            "Animations": {
+                "Walk": 17898379511,
+                "Run": 18100608314,
+                "Idle": 18100622300
+            },
+            "Name": "Wendell",
+            "MovementInfo": {
+                "CrawlInfo": {
+                    "CanCrawl": false,
+                    "CrawlSpeed": 4
+                },
+                "WalkSpeed": 4.6,
+                "RunInfo": {
+                    "CanRun": true,
+                    "RunSpeed": 12
+                }
+            },
+            "PriceInfo": {
+                "Cost": 1e+99,
+                "PurchaseType": "Tokens"
+            },
+            "ID": "DEV_WENDELL",
+            "Description": "",
+            "PhysicalMappings": {
+                "Head": "M_MED_SirWolf_LOD0.002"
+            },
+            "Restriction": [
+                "Development",
+                "QA"
+            ],
+            "Media": {
+                "Bust": "rbxassetid://16574088498",
+                "Fullbody": "rbxassetid://17897420781",
+                "Headshot": "rbxassetid://13631975019"
+            }
+        },
+        "F1_FOXY": {
+            "ActionInfo": [],
+            "Category": "FNAF 1",
+            "Animations": {
+                "Walk": 94689371083672,
+                "Idle": 113639623723881
+            },
+            "Name": "Foxy the Pirate Fox",
+            "PriceInfo": {
+                "Cost": 1000,
+                "PurchaseType": "Tokens"
+            },
+            "ID": "F1_FOXY",
+            "Description": "Golden Freddy, not much is known about this.. Freddy? Staff around Freddy's have discussed seeing this character but in very strange appearances, typically involving a child standing next to it.. but then they both disappear.. but who knows, maybe our staff are just crazy!",
+            "MovementInfo": {
+                "CrawlInfo": {
+                    "CanCrawl": false,
+                    "CrawlSpeed": 4
+                },
+                "WalkSpeed": 2.85,
+                "RunInfo": {
+                    "CanRun": true,
+                    "RunSpeed": 8
+                }
+            },
+            "PhysicalMappings": {
+                "Head": "Mask"
+            },
+            "AccentColor": null,
+            "Media": {
+                "Bust": "rbxassetid://16298531388",
+                "Fullbody": "rbxassetid://13554931765",
+                "Headshot": "rbxassetid://111622966898733"
+            }
+        },
+        "F1_FREDDY": {
+            "ActionInfo": [],
+            "Category": "FNAF 1",
+            "Animations": {
+                "Walk": 125899079181595,
+                "Idle": 113639623723881,
+                "Run": 107036085090907
+            },
+            "Name": "Freddy Fazbear",
+            "PriceInfo": {
+                "Cost": 1000,
+                "PurchaseType": "Tokens"
+            },
+            "ID": "F1_FREDDY",
+            "Description": "Golden Freddy, not much is known about this.. Freddy? Staff around Freddy's have discussed seeing this character but in very strange appearances, typically involving a child standing next to it.. but then they both disappear.. but who knows, maybe our staff are just crazy!",
+            "MovementInfo": {
+                "CrawlInfo": {
+                    "CanCrawl": false,
+                    "CrawlSpeed": 4
+                },
+                "WalkSpeed": 2.85,
+                "RunInfo": {
+                    "CanRun": true,
+                    "RunSpeed": 8
+                }
+            },
+            "PhysicalMappings": {
+                "Head": "Mask"
+            },
+            "AccentColor": null,
+            "Media": {
+                "Bust": "rbxassetid://16298531388",
+                "Fullbody": "rbxassetid://13554931765",
+                "Headshot": "rbxassetid://75377137912031"
+            }
+        },
+        "F1_BONNIE": {
+            "ActionInfo": [],
+            "Category": "FNAF 1",
+            "Animations": {
+                "Walk": 94689371083672,
+                "Idle": 113639623723881
+            },
+            "Name": "Bonnie the Bunny",
+            "PriceInfo": {
+                "Cost": 1000,
+                "PurchaseType": "Tokens"
+            },
+            "ID": "F1_BONNIE",
+            "Description": "Golden Freddy, not much is known about this.. Freddy? Staff around Freddy's have discussed seeing this character but in very strange appearances, typically involving a child standing next to it.. but then they both disappear.. but who knows, maybe our staff are just crazy!",
+            "MovementInfo": {
+                "CrawlInfo": {
+                    "CanCrawl": false,
+                    "CrawlSpeed": 4
+                },
+                "WalkSpeed": 2.85,
+                "RunInfo": {
+                    "CanRun": true,
+                    "RunSpeed": 8
+                }
+            },
+            "PhysicalMappings": {
+                "Head": "Mask"
+            },
+            "AccentColor": null,
+            "Media": {
+                "Bust": "rbxassetid://16298531388",
+                "Fullbody": "rbxassetid://13554931765",
+                "Headshot": "rbxassetid://86586068490033"
+            }
+        }
+    }
+]

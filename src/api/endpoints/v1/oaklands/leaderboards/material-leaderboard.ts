@@ -1,5 +1,6 @@
 import { createRoute } from "@hono/zod-openapi";
 import MaterialLeaderboard, { type MaterialLeaderboardSchema } from "@/lib/schemas/Oaklands/MaterialLeaderboard";
+import type { MaterialLeaderboardItemSchema } from "@/lib/schemas/Oaklands/MaterialLeaderboardItem";
 import ErrorMessage from "@/lib/schemas/ErrorMessage";
 import oaklands from "@/api/routes/oaklands";
 import container from "@/setup/container";
@@ -26,18 +27,18 @@ const route = createRoute({
 });
 
 oaklands.openapi(route, async (res) => {
-    const items = container.cache.get<MaterialLeaderboardSchema>('material_leaderboard');
-
-    if (!items) {
+    if (!(await container.redis.exists('material_leaderboard'))) {
         return res.json({
             error: "INTERNAL_ERROR",
-            message: "There was an internal error when requesting."
+            message: "The contents for the shop are currently not cached."
         }, 500);
     }
 
+    const [ reset_time, last_update, leaderboards ]: [number, number, Record<string, Record<string, MaterialLeaderboardItemSchema>>] = JSON.parse((await container.redis.get('material_leaderboard'))!)
+
     return res.json({
-        reset_time: items.reset_time,
-        last_update: items.last_update,
-        leaderboards: items.leaderboards
+        reset_time: new Date(reset_time),
+        last_update: new Date(last_update),
+        leaderboards: leaderboards
     }, 200);
 });

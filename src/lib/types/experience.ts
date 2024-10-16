@@ -65,3 +65,4 @@ export type Character = {
 };
 
 export type CharacterData = Record<string, Character>
+export type IndividualCharacter = Character

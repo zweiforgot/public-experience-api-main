@@ -6,7 +6,7 @@ import { getCharacters } from "@/lib/util";
 
 const route = createRoute({
     method: "get",
-    path: "/fracturedfranchise",
+    path: "/characters",
     tags: ['FracturedFranchise'],
     description: "Get information about every character in Fractured Franchise.",
     responses: {

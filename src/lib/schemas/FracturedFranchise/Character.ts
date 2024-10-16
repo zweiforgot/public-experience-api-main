@@ -34,10 +34,6 @@ const Character = z.object({
     })
 });
 
-const Characters = z.object({
-    characters: z.record(Character)
-});
+export type CharacterSchema = z.infer<typeof Character>;
 
-export type CharactersSchema = z.infer<typeof Characters>;
-
-export default Characters;
+export default Character;

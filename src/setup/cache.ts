@@ -13,7 +13,7 @@ const cacheRunners = {
 await Promise.all(Object.entries(cacheRunners).map(([_, func]) => func()));
 
 // Runs every 5th minute
-NodeSchedule.scheduleJob('refetch_leaderboard', '*/5 * * * *', async() => 
+NodeSchedule.scheduleJob('refetch_leaderboard', '*/30 * * * *', async() => 
     await Promise.all([
         cacheRunners.characters()
     ])

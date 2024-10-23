@@ -1,8 +1,8 @@
 export const enum UniverseIDs {
-    Oaklands = 3666294218
+    FF = 6027054720
 };
 
-export const enum OaklandsPlaceIDs {
+export const enum FracturedPlaceIDs {
     Production = 9938675423,
-    Staging = 13353432458
+    QA = 17797237665
 }

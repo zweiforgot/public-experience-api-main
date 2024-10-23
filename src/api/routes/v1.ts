@@ -1,9 +1,9 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
-import oaklands from "@/api/routes/oaklands";
+import fracturedfranchise from "@/api/routes/fracturedfranchise";
 
 const v1 = new OpenAPIHono();
 
 v1.get('/', (res) => res.json({ status: "OK", endpoint: res.req.path }));
-v1.route('/oaklands', oaklands);
+v1.route('/fracturedfranchise', fracturedfranchise);
 
 export default v1;

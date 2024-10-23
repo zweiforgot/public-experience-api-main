@@ -20,7 +20,7 @@ app.doc('/docs/json', {
         version: "1.0.0" 
     },
     tags: [
-        { name: 'Oaklands', description: 'Operations relating to Oaklands.' },
+        { name: 'Fractured Franchise', description: 'Operations relating to Fractured Franchise.' },
     ]
 });
 
